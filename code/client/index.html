@@ -11,24 +11,41 @@
   <button type="submit">Fetch User's Repos</button>
 </form>
 
-<table class="top-repos"></table>
-
+<table class="top-repos">
+</table>
 <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
 <script>
 
-// TODO:
+// TODO:  
 //  Respond to the form's `submit` event,
 //  fetch from GitHub's API,
 //  and send result to POST /repos/import
+$(document).ready(function() {
+  $.get('/repos').done(function(data) {
+    data.map(function(elem) {
+    var url = 'https://github.com/'+elem.owner+'/'+elem.name;
+      $('.top-repos').append(
+        '<tr><td><a href='+url+'>'+elem.name+'</a></td><td>'+elem.owner+'</td><td>'+elem.stargazers_count+'</td></tr>');
+    }) 
+  }); 
 
   function getRepos (user) {
-    $.get('https://api.github.com/users/'+user+'/repos', function(data) {
-      var cleaned = data.map(function(elem) {
-        return {"owner":elem.owner.login, "name": elem.name,"stargazers":elem.stargazers_count};
+    var cleaned = null;
+    $.get('https://api.github.com/users/'+user+'/repos').done(function(data) {
+      var clean = data.map(function(elem) {
+        var obj = {"owner":elem.owner.login, "name": elem.name,"stargazers_count":elem.stargazers_count};
+        return obj;
       });
-      console.log(cleaned);
-      // $.post('/repos/import', data);
-    })
+
+     $.ajax({
+       type: 'POST',
+       url: '/repos/import',
+       data: clean,
+     }).done(function(){
+       console.log('cleaned after post',clean);
+     })
+
+    });
   }
 
   $('form').submit(function(e){
@@ -36,8 +53,7 @@
     name.length > 0 ? getRepos(name) : alert('Enter A Valid Username');
     e.preventDefault();
   });
-
-
+});
 </script>
 </body>
 </html>

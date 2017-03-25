@@ -17,21 +17,21 @@ $ npm start
 
 ## Basic Requirements:
 
-- [ ] Fix the error that happens when you start the server (hint: google the error)
+- [Done] Fix the error that happens when you start the server (hint: google the error)
 
-- [ ] Use [knex migrations](http://knexjs.org/#Migrations) to create a `repos` table. It should have columns for the repo's name, the owner's username, and the repo's number of stargazers.
+- [Done] Use [knex migrations](http://knexjs.org/#Migrations) to create a `repos` table. It should have columns for the repo's name, the owner's username, and the repo's number of stargazers.
 
-- [ ] When a user types a github username into the text field, fetch that user's GitHub repositories from the [GitHub API](https://developer.github.com/v3/).
+- [Done] When a user types a github username into the text field, fetch that user's GitHub repositories from the [GitHub API](https://developer.github.com/v3/).
 
 - [ ] Send the data you get from GitHub to your express server via a `POST` request to `/repos/import`. This endpoint should store that data in the database.
 
     - [ ] Ensure there are no duplicate repos. If you happen to import the same repo twice, it should only show up once in your database. See the tips section about considering unique columns.
 
-- [ ] Write a `GET /repos` endpoint that retrieves the top 25 repos stored in your database, sorted by most stargazers
+- [Done] Write a `GET /repos` endpoint that retrieves the top 25 repos stored in your database, sorted by most stargazers
 
-- [ ] When the page loads, you should fetch `GET /repos` and display the repo information on the page in an HTML table.
+- [Done] When the page loads, you should fetch `GET /repos` and display the repo information on the page in an HTML table.
 
-- [ ] Make each repo's name in the table link to that repo's page on GitHub.
+- [Done] Make each repo's name in the table link to that repo's page on GitHub.
 
 ## Extra Credit:
 

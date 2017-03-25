@@ -16,12 +16,27 @@ var knex = require('knex')({
 
 
 app.post('/repos/import', function (req, res) {
-  console.log(req.body);
+  knex('repos').insert(req.body).then(() => {
+    res.status(201).send('Posted Data')
+  }).catch((err) => {
+    console.error('Error Saving Data');
+    res.status(501).send(err);
+  });
 });
 
 
 app.get('/repos', function (req, res) {
   // TODO
+  knex.select().table('repos')
+    .orderBy('stargazers_count', 'desc')
+    .limit(25)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.error('Error Getting From DB');
+      res.status(501).send(err);
+    })
 });
 
 
