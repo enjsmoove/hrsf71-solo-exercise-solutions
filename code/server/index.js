@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 var app = express();
 module.exports = app;
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 app.use( bodyParser.json() );
 
 var knex = require('knex')({
@@ -13,7 +16,6 @@ var knex = require('knex')({
     filename: './github-fetcher.sqlite3'
   }
 });
-
 
 app.post('/repos/import', function (req, res) {
   knex('repos').insert(req.body).then(() => {

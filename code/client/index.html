@@ -30,21 +30,23 @@ $(document).ready(function() {
   }); 
 
   function getRepos (user) {
-    var cleaned = null;
+    var clean = null;
     $.get('https://api.github.com/users/'+user+'/repos').done(function(data) {
-      var clean = data.map(function(elem) {
-        var obj = {"owner":elem.owner.login, "name": elem.name,"stargazers_count":elem.stargazers_count};
+      clean = data.map(function(elem) {
+        var obj = {"name": elem.name,"owner":elem.owner.login, "stargazers_count":elem.stargazers_count};
         return obj;
       });
-      var test = {"owner":"anirvan90", "name":"anirvansrepo", "stargazers_count":10}
-     $.ajax({
-       type: 'POST',
-       url: '/repos/import',
-       data: JSON.stringify(test)
-     }).done(function(data){
-       console.log('cleaned after post',data);
-     })
 
+     for(var i=0; i < clean.length; i++) {
+        $.ajax({
+          type:'POST',
+          url:'/repos/import', 
+          data: clean[i],
+          success: function(msg) {
+            console.log(msg);
+          }
+        });
+      }
     });
   }
 
