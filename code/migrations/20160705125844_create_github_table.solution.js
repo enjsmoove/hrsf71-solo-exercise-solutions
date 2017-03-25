@@ -1,6 +1,6 @@
 
 exports.up = function (knex, Promise) {
-  return knex.schema.createTable('repos2', function (table) {
+  return knex.schema.createTableIfNotExists('repos2', function (table) {
     table.string('name')
     table.string('owner')
     table.primary(['name', 'owner'])
