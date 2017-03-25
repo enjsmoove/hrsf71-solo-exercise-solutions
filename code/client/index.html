@@ -8,7 +8,6 @@
 <form class="repo-fetcher">
   <h3>Enter a GitHub username to fetch:</h3>
   <input type="text" name="username" />
-
   <button type="submit">Fetch User's Repos</button>
 </form>
 
@@ -21,8 +20,18 @@
 //  Respond to the form's `submit` event,
 //  fetch from GitHub's API,
 //  and send result to POST /repos/import
-//
-// $('.repo-fetcher')...
+
+  function getRepos (user) {
+    $.get('https://api.github.com/users/'+user+'/repos', function(data) {
+      console.log(data);
+    })
+  }
+
+  $('form').submit(function(e){
+    getRepos($('input').val());
+    e.preventDefault();
+  });
+
 
 </script>
 </body>
