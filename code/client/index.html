@@ -61,12 +61,16 @@ function requestJSON(url, callback){
 function getAllStoredRepos() {
   $.get('/allrepos', function (res){
       $.each(res, function(i, repo){
+        var url = repo.url;
         $('<tr class = repo>').append(
-            $('<td>').text(repo.name),
+            $('<td class = reponame>').text(repo.name),
             $('<td>').text(repo.owner),
             $('<td>').text  (repo.stargazers_count)).appendTo('.top-repos');
-      })    
+        $('.reponame').wrap(()=>{
+            return "<a href=" + this.url +"></a>";
+        })
   })
+})
 }
 
 </script>
