@@ -17,16 +17,16 @@ var knex = require('knex')({
 
 app.post('/repos/import', function (req, res) {
   console.log('GOT TO THE SERVER --->', req.body);
-  res.send(201);
-  // knex('repos').insert(req.body)
-  // .then((res) =>{
-  //   res.sendStatus(201)
-  //   console.log("successfully imported repos")
-  // })
-  // .catch((err)=>{
-  //   res.status(501);
-  //   console.error('Error importing repos', err);
-  // })
+
+  knex('repos').insert(req.body)
+  .then((res) =>{
+    res.sendStatus(201)
+    console.log("successfully imported repos")
+  })
+  .catch((err)=>{
+    res.status(501);
+    console.error('Error importing repos', err);
+  })
 });
 
 
