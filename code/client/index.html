@@ -67,7 +67,7 @@ $('.repo-fetcher').submit(function(event) {
     contentType: 'application/json',
     success: function(result) {
       console.log("Successfully submit to Server ", result);
-      fetchReposFromServer();
+      // fetchReposFromServer();
     },
     error: function(error) {
       console.log('Fail to submit to server ', error);  

@@ -17,27 +17,25 @@ var knex = require('knex')({
   }
 });
 knex.migrate.rollback()
-.then(()=>{
-  console.log("rolling back successfully");
-})
+  .then(() => {
+    console.log("rolling back successfully");
+  })
 knex.migrate.latest()
-.then((a)=> {
-  console.log('successfully migrate',a);
-})
-.catch(err => {
-  console.error('fail to migrate', err);
-})
+  .then((a) => {
+    console.log('successfully migrate', a);
+  })
+  .catch(err => {
+    console.error('fail to migrate', err);
+  })
 
 
 app.use(bodyParser.json());
 app.use('/', express.static(path.join('__dirname', '../client')));
 
 app.post('/repos/import', function (req, res) {
-  console.log('++++++++++receving username ', req.body.username)
   var username = req.body.username; //expect body is username
   var userRepoURL = 'https://api.github.com/users/' + username + '/repos'
 
-  console.log('===================================== request url',  userRepoURL);
   var options = {
     url: userRepoURL,
     headers: {
@@ -57,6 +55,31 @@ app.post('/repos/import', function (req, res) {
       var repoOwner = repo.owner.login;
       var repoStargazers = repo.stargazers_count;
       var repoURL = repo.svn_url;
+
+      // check duplicate
+        // if nothing exist, add table
+      // knex('repos').whereNotExists(function () {
+      //   this.select('*').from('repos').where({ name: repoName })
+      // })
+      //   .then(() => {
+      //     knex('repos').insert({
+      //       name: repoName,
+      //       owner: repoOwner,
+      //       stargazers_count: repoStargazers,
+      //       repo_url: repoURL
+      //     })
+      //       .then(() => {
+      //         console.log('successfully insert row into database repos')
+      //       })
+      //       .catch(error => {
+      //         console.error('Fail to insert repo into database repos', error);
+      //       })
+      //   })
+      //   .catch(error => {
+      //     console.error('')
+      //   })
+
+        // works well to insert table without check duplicate
 
       knex('repos').insert({
         name: repoName,
@@ -78,14 +101,14 @@ app.post('/repos/import', function (req, res) {
 
 app.get('/repos', function (req, res) {
   knex.select().table('repos')
-  .orderBy('stargazers_count', 'desc')
-  .limit(25)
-  .then(repos => {
-    res.send(repos);
-  })
-  .catch(err => {
-    console.log('Fail to fetching the repos from table repos', err);
-  })
+    .orderBy('stargazers_count', 'desc')
+    .limit(25)
+    .then(repos => {
+      res.send(repos);
+    })
+    .catch(err => {
+      console.log('Fail to fetching the repos from table repos', err);
+    })
 });
 
 
