@@ -33,6 +33,7 @@ app.post('/repos/import', function (req, res) {
 app.get('/repos', function (req, res) {
   knex.select().table('repos')
   .orderBy('stargazers_count', 'desc')
+  .limit(25)
   .then((data)=> {
     console.log(data);
     res.status(200).send(data);

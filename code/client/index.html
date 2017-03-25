@@ -33,8 +33,7 @@
    })
    .done(function(results) {
      console.log(results)
-     for(var i = 0; i < results.length; i++){
-       var result = results[i];
+     results.map(function(result) {
        var info = {
          'name': result.name,
          'owner': result.owner.login,
@@ -47,7 +46,7 @@
          contentType: 'application/json',
          dataType: 'json'
        })
-     }
+     })
    })
  })
  $.ajax({
@@ -56,8 +55,7 @@
    dataType: 'json'
  })
  .done(function(results) {
-   for(var k = 0; k < 24; k++) {
-     var result = results[k];
+   results.map(function(result) {
      var url = "https://github.com/" + result.owner + "/" + result.name;
      var name = $("<a href="+ url +"></a>").text("Repo Name: " + result.name);
 
@@ -65,7 +63,7 @@
      var starGazer = $("<p></p>").text("StarGazers: " + result.stargazers_count);
 
      $('.top-repos').append(name, owner, starGazer);
-   }
+   })
  })
 
 </script>
