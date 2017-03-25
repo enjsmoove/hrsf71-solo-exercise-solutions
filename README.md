@@ -17,7 +17,7 @@ $ npm start
 
 ## Basic Requirements:
 
-- [ ] Fix the error that happens when you start the server (hint: google the error)
+- [ X ] Fix the error that happens when you start the server (hint: google the error)
 
 - [ ] Use [knex migrations](http://knexjs.org/#Migrations) to create a `repos` table. It should have columns for the repo's name, the owner's username, and the repo's number of stargazers.
 
