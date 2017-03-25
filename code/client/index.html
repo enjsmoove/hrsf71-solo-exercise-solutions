@@ -22,7 +22,18 @@
 //  fetch from GitHub's API,
 //  and send result to POST /repos/import
 //
-// $('.repo-fetcher')...
+ $('.repo-fetcher').submit(function(data) {
+   var data = $('input').val()
+   event.preventDefault();
+   $.ajax({
+     url: 'https://api.github.com/users/' + data + '/repos',
+     type: 'GET',
+     dataType : 'json'
+   })
+   .done(function(json) {
+     console.log(json);
+   })
+ })
 
 </script>
 </body>

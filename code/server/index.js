@@ -16,12 +16,12 @@ var knex = require('knex')({
 
 
 app.post('/repos/import', function (req, res) {
-  // TODO
+  
 });
 
 
 app.get('/repos', function (req, res) {
-  // TODO
+  knex.select()
 });
 
 
