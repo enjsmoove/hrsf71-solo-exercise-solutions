@@ -16,7 +16,6 @@ var knex = require('knex')({
 
 
 app.post('/repos/import', function (req, res) {
-  console.log('GOT TO THE SERVER --->', req.body);
 
   knex('repos').insert(req.body)
   .then((data) =>{
@@ -35,7 +34,7 @@ app.get('/repos', function (req, res) {
   .orderBy('stargazers_count', 'desc')
   .limit(25)
   .then((data)=> {
-    console.log(data);
+    console.log("I AM GET REPOS REQUEST");
     res.status(200).send(data);
   })
 });

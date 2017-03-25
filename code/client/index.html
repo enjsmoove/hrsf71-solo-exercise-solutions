@@ -32,6 +32,7 @@
 
    })
    .done(function(results) {
+     window.alert(results.length + " Repos were Imported!");
      results.map(function(result) {
        var info = {
          'name': result.name,
@@ -56,6 +57,7 @@
    dataType: 'json'
  })
  .done(function(results) {
+
    results.map(function(result) {
      var url = "https://github.com/" + result.owner + "/" + result.name;
      var name = $("<a href="+ url +"></a>").text("Repo Name: " + result.name);
