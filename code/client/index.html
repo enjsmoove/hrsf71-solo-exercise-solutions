@@ -29,9 +29,21 @@
      url: 'https://api.github.com/users/' + data + '/repos',
      type: 'GET',
      dataType : 'json'
+
    })
-   .done(function(json) {
-     console.log(json);
+   .done(function(results) {
+     for(var i = 0; i < results.length; i++){
+       var result = results[i];
+       var data = {
+         name: result.name,
+         owner: result.owner.login,
+         stargazers_count: result.stargazers_count
+       }
+       $.post("http://localhost:4040/repos/import", {name: "matt" }, function(data, status){
+         console.log("THIS IS DATA--->", data);
+         console.log("THIS IS STATUS---->", status);
+       })
+     }
    })
  })
 

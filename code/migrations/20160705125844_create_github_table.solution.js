@@ -8,6 +8,9 @@ exports.up = function(knex, Promise) {
 
     table.integer('stargazers_count');
   });
+  knex.schema.alterTable('repos', function(table) {
+    table.unique('name');
+  })
 };
 
 exports.down = function(knex, Promise) {
