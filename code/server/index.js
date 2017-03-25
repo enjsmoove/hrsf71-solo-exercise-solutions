@@ -34,7 +34,6 @@ app.get('/repos', function (req, res) {
   .orderBy('stargazers_count', 'desc')
   .limit(25)
   .then((data)=> {
-    console.log("I AM GET REPOS REQUEST");
     res.status(200).send(data);
   })
 });
