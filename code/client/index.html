@@ -24,6 +24,20 @@
 // $('.repo-fetcher')...
 
 $(document).ready(function() {
+  $.ajax({
+      headers: {
+        Accept: "application/vnd.github.v3+json"
+      },
+      url: '/repos',
+      dataType: "json",
+      success: function(data) {
+          let convertedData = data.map((item) => { 
+            $('.top-repos').append("<p>" + item.reponame + "</p><br>" + "<p>" + item.username + "</p><br>" + "<p>" + item.stargazers + "</p><br>")
+        })
+      }
+  });
+
+
   $(".repo-fetcher-btn").on('click', function(e) {
     e.preventDefault()
     let input = $('#username').val()
@@ -38,13 +52,14 @@ $(document).ready(function() {
       success: function(data) {
         console.log('data', data)
         let convertedData = data.map((item) => { 
+          $('.top-repos').append("<p>" + item.name + "</p><br>" + "<p>" + item.owner.login + "</p><br>" + "<p>" + item.stargazers_count + "</p><br>")
             return ({ 
               reponame: item.name,
               username: item.owner.login,
               stargazers: item.stargazers_count
             }
           )
-        }) 
+        })
         console.log('convertedData::::::', convertedData)
         $.ajax({
           type: "POST",
@@ -52,6 +67,7 @@ $(document).ready(function() {
           dataType: "json",
           data: convertedData,
           success: function(response) {
+            
             console.log("response from the server!", response)
           }
         });
