@@ -5,7 +5,6 @@ exports.up = function(knex, Promise) {
     table.string('name');
     table.string('owner');
     table.primary(['name', 'owner']);
-
     table.integer('stargazers_count');
   });
 };

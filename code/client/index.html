@@ -12,10 +12,15 @@
   <button type="submit">Fetch User's Repos</button>
 </form>
 
-<table class="top-repos"></table>
+<table class="top-repos" border = '2'>Top Repos
+  <th>Repository Name</th>
+  <th>Owner</th>
+  <th>Stargazer Count</th>
+</table>
 
 <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
 <script>
+getAllStoredRepos();
 
 // TODO:
 //  Respond to the form's `submit` event,
@@ -25,17 +30,35 @@
 $('.repo-fetcher').submit(function(e){
   e.preventDefault();
   var username = $('input').val();
-  var requri = 'https://api.github/users/' + username;
+  var requri = 'https://api.github.com/users/' + username;
   var repouri = 'https://api.github.com/users/' +username + '/repos';
 
-  requestJSON(requri, function(json){
-    console.log(json)
-  })
+  // requestJSON(requri, function(json){
+  //   console.log(json)
+  // })
   requestJSON(repouri, function(json){
     console.log(json)
+  //   for(var repo in json) {
+    // $.post('/repos/import', {name:  repo.name, owner: repo.owner, stargazers_count: repo.stargazers_count}, function(data){
+    //   console.log(username + ' repos have been sent/stored to  server/database ' + data)
+    // })
+      //   $.post('/repos/import', {username}, function(data){
+      // console.log(username + ' repos have been sent/stored to server/database ' + data)
+  //   })
+  //   }
+    $.post('/repos', {json}, function(res){
+      console.log(res)
+      // ('.top-repos').empty();
+      $.each(res, function(i, repo){
+        $('<tr>').append(
+            $('<td>').text(repo.name),
+            $('<td>').text(repo.owner),
+            $('<td>').text  (repo.stargazers_count)).appendTo('.top-repos');
+      })
+    })
   })
 
-})
+ })
 
 function requestJSON(url, callback){
   $.ajax({
@@ -43,6 +66,17 @@ function requestJSON(url, callback){
     complete: function(xhr) {
       callback.call(null, xhr.responseJSON)
     }
+  })
+}
+
+function getAllStoredRepos() {
+  $.get('/allrepos', function (res){
+      $.each(res, function(i, repo){
+        $('<tr>').append(
+            $('<td>').text(repo.name),
+            $('<td>').text(repo.owner),
+            $('<td>').text  (repo.stargazers_count)).appendTo('.top-repos');
+      })    
   })
 }
 
