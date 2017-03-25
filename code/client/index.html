@@ -9,7 +9,7 @@
   <h3>Enter a GitHub username to fetch:</h3>
   <input id="username" type="text" name="username" />
 
-  <button class="repo-fetcher" type="submit">Fetch User's Repos</button>
+  <button class="repo-fetcher-btn" type="submit">Fetch User's Repos</button>
 </form>
 
 <table class="top-repos"></table>
@@ -24,7 +24,7 @@
 // $('.repo-fetcher')...
 
 $(document).ready(function() {
-  $(".repo-fetcher").on('click', function(e) {
+  $(".repo-fetcher-btn").on('click', function(e) {
     e.preventDefault()
     let input = $('#username').val()
     let inputUrl = "https://api.github.com/users/" + input + "/repos"
@@ -37,11 +37,22 @@ $(document).ready(function() {
       crossDomain: true,
       success: function(data) {
         console.log(data)
+        $.ajax({
+          type: "POST",
+          url: '/repos/import',
+          data: data,
+          success: function(response) {
+            console.log("response from the server!", response)
+          },
+          dataType: "json"
+        });
       },
-      error: function() {
+      error: function(error) {
         console.log("error", error)
       }
     });
+
+
     console.log(input)
   })
 })

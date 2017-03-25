@@ -16,7 +16,7 @@ var knex = require('knex')({
 })
 
 app.post('/repos/import', function (req, res) {
-  res.send('POST send to /repos/import')
+  res.json({'win': 'win'})
 })
 
 app.get('/repos', function (req, res) {
