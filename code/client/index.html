@@ -7,13 +7,14 @@
 <h2>GitHub Fetcher</h2>
 <form class="repo-fetcher">
   <h3>Enter a GitHub username to fetch:</h3>
-  <input type="text" name="username" />
+  <input type="text" name="username" required />
 
   <button type="submit">Fetch User's Repos</button>
 </form>
 
-<table class="top-repos"></table>
+<table class="top-repos table table-striped"></table>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
 <script>
 
@@ -22,7 +23,59 @@
 //  fetch from GitHub's API,
 //  and send result to POST /repos/import
 //
-// $('.repo-fetcher')...
+$(document).ready(function() {
+  console.log('Document is ready to use');
+  fetchReposFromServer();
+});
+
+function fetchReposFromServer() {
+  $.ajax({
+    url: '/repos',
+    success: function(repos) {
+      var $tableHead = "<thead><tr><th>#</th><th>Name</th><th>Owner</th><th>Stargazers</th></tr></thead>"
+      $('table.top-repos').append($tableHead);
+      drawTable(repos);
+    },
+    error: function(err) {
+      console.error("Fail to Fetching Repos from Server index.html ", err);
+    }
+  })
+};
+
+function drawTable(repos, cb) {
+  console.log("drawing the tables");
+  var $tableBody = "<tbody class='repos-table-body'></tbody>";
+  $('table.top-repos').append($tableBody);
+  var count = 1;
+  // it will get the error when request too many times from Github API
+  repos.map(function(repo) {
+    console.log('----------------', repo.repo_url);
+    var $tableRow = "<tr><td>" + count + "</td><td><a href=" + repo.repo_url + ">" + repo.name + "</a>" +  "</td><td>" + repo.owner + "</td><td>" + repo.stargazers_count +"</td></tr>"
+    count++;
+    $('tbody.repos-table-body').append($tableRow);
+  })
+}
+
+$('.repo-fetcher').submit(function(event) {
+  event.preventDefault();
+  var username = $("input[name=username]").val();
+  console.log("Front end username is ", username);
+  $.ajax({
+    url: "/repos/import",
+    method: "POST",
+    data: JSON.stringify({username: username}),
+    contentType: 'application/json',
+    success: function(result) {
+      console.log("Successfully submit to Server ", result);
+      fetchReposFromServer();
+    },
+    error: function(error) {
+      console.log('Fail to submit to server ', error);  
+    }
+  })
+});
+
+
 
 </script>
 </body>
