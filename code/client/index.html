@@ -36,15 +36,24 @@ $(document).ready(function() {
       dataType: "json",
       crossDomain: true,
       success: function(data) {
-        console.log(data)
+        console.log('data', data)
+        let convertedData = data.map((item) => { 
+            return ({ 
+              reponame: item.name,
+              username: item.owner.login,
+              stargazers: item.stargazers_count
+            }
+          )
+        }) 
+        console.log('convertedData::::::', convertedData)
         $.ajax({
           type: "POST",
           url: '/repos/import',
-          data: data,
+          dataType: "json",
+          data: convertedData,
           success: function(response) {
             console.log("response from the server!", response)
-          },
-          dataType: "json"
+          }
         });
       },
       error: function(error) {

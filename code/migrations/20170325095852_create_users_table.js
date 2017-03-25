@@ -1,6 +1,6 @@
 
 exports.up = function (knex, Promise) {
-  return knex.schema.createTable('repos2', function (table) {
+  return knex.schema.createTable('repos', function (table) {
     table.string('reponame')
     table.string('username')
     table.integer('stargazers')
