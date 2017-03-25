@@ -6,16 +6,16 @@ exports.up = function (knex, Promise) {
       table.string('username')
       table.integer('stargazers')
     }).then(function () {
-      return knex('repos').insert([
-        {reponame: 'A', username: 'A', stargazers: 0},
-        {reponame: 'B', username: 'BB', stargazers: 0},
-        {reponame: 'C', username: 'CCC', stargazers: 0},
-        {reponame: 'D', username: 'DDDD', stargazers: 0}
-      ])
+      return knex.schema.dropTableIfExists('repos').then(function () {
+        console.log('droped')
+      })
     })
   ])
 }
 
 exports.down = function (knex, Promise) {
-  return knex.schema.dropTable('repos')
+  return Promise.all([
+    knex.schema.dropTableIfExists('repos')
+    .then(function () {})
+  ])
 }

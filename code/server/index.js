@@ -6,7 +6,7 @@ var app = express()
 module.exports = app
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.urlencoded({ extended: true }))
 
 var knex = require('knex')({
   client: 'sqlite3',
@@ -25,15 +25,19 @@ app.post('/repos/import', function (req, res) {
   console.log('data sent to server ie req.body', req.body)
 
   req.body.map(function (repo) {
-    knex.insert(repo).into('repos').then(function () {})
-    console.log('Formated repo saved to DB', repo)
+    knex.insert(repo).into('repos').then(function () {
+      console.log('Formated repo saved to DB', repo)
+    })
   })
 
   res.json(req.body)
 })
 
 app.get('/repos', function (req, res) {
-  res.send('GET send to /repos')
+  knex.select().table('repos').then(function (result) {
+    console.log(result)
+  })
+  // .res.send('GET send to /repos')
 })
 
 app.use(express.static(path.join(__dirname, './../client')))
