@@ -32,6 +32,7 @@
 
    })
    .done(function(results) {
+     console.log(results)
      for(var i = 0; i < results.length; i++){
        var result = results[i];
        var info = {
@@ -48,6 +49,23 @@
        })
      }
    })
+ })
+ $.ajax({
+   url: "http://localhost:4040/repos",
+   type: "GET",
+   dataType: 'json'
+ })
+ .done(function(results) {
+   for(var k = 0; k < 24; k++) {
+     var result = results[k];
+     var url = "https://github.com/" + result.owner + "/" + result.name;
+     var name = $("<a href="+ url +"></a>").text("Repo Name: " + result.name);
+
+     var owner = $("<p></p>").text("Owner: " + result.owner);
+     var starGazer = $("<p></p>").text("StarGazers: " + result.stargazers_count);
+
+     $('.top-repos').append(name, owner, starGazer);
+   }
  })
 
 </script>

@@ -19,8 +19,8 @@ app.post('/repos/import', function (req, res) {
   console.log('GOT TO THE SERVER --->', req.body);
 
   knex('repos').insert(req.body)
-  .then((res) =>{
-    res.sendStatus(201)
+  .then((data) =>{
+    res.status(200).json(data);
     console.log("successfully imported repos")
   })
   .catch((err)=>{
@@ -32,6 +32,7 @@ app.post('/repos/import', function (req, res) {
 
 app.get('/repos', function (req, res) {
   knex.select().table('repos')
+  .orderBy('stargazers_count', 'desc')
   .then((data)=> {
     console.log(data);
     res.status(200).send(data);
