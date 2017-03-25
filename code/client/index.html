@@ -23,12 +23,17 @@
 
   function getRepos (user) {
     $.get('https://api.github.com/users/'+user+'/repos', function(data) {
-      console.log(data);
+      var cleaned = data.map(function(elem) {
+        return {"owner":elem.owner.login, "name": elem.name,"stargazers":elem.stargazers_count};
+      });
+      console.log(cleaned);
+      // $.post('/repos/import', data);
     })
   }
 
   $('form').submit(function(e){
-    getRepos($('input').val());
+    var name = $('input').val();
+    name.length > 0 ? getRepos(name) : alert('Enter A Valid Username');
     e.preventDefault();
   });
 

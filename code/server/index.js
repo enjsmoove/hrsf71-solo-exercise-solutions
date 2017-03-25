@@ -16,7 +16,7 @@ var knex = require('knex')({
 
 
 app.post('/repos/import', function (req, res) {
-  // TODO
+  console.log(req.body);
 });
 
 
