@@ -12,7 +12,7 @@
   <button type="submit">Fetch User's Repos</button>
 </form>
 
-<table class="top-repos" border = '2'>Top Repos
+<table class="top-repos" border = '2'>Repos
   <th>Repository Name</th>
   <th>Owner</th>
   <th>Stargazer Count</th>
@@ -33,31 +33,20 @@ $('.repo-fetcher').submit(function(e){
   var requri = 'https://api.github.com/users/' + username;
   var repouri = 'https://api.github.com/users/' +username + '/repos';
 
-  // requestJSON(requri, function(json){
-  //   console.log(json)
-  // })
   requestJSON(repouri, function(json){
     console.log(json)
-  //   for(var repo in json) {
-    // $.post('/repos/import', {name:  repo.name, owner: repo.owner, stargazers_count: repo.stargazers_count}, function(data){
-    //   console.log(username + ' repos have been sent/stored to  server/database ' + data)
-    // })
-      //   $.post('/repos/import', {username}, function(data){
-      // console.log(username + ' repos have been sent/stored to server/database ' + data)
-  //   })
-  //   }
-    $.post('/repos', {json}, function(res){
+    json = json.slice(0,9);
+    $.get('/repos', {json}, function(res){
       console.log(res)
-      // ('.top-repos').empty();
+      $('.repo').remove();
       $.each(res, function(i, repo){
-        $('<tr>').append(
+        $('<tr class = repo>').append(
             $('<td>').text(repo.name),
             $('<td>').text(repo.owner),
             $('<td>').text  (repo.stargazers_count)).appendTo('.top-repos');
       })
     })
   })
-
  })
 
 function requestJSON(url, callback){
@@ -72,7 +61,7 @@ function requestJSON(url, callback){
 function getAllStoredRepos() {
   $.get('/allrepos', function (res){
       $.each(res, function(i, repo){
-        $('<tr>').append(
+        $('<tr class = repo>').append(
             $('<td>').text(repo.name),
             $('<td>').text(repo.owner),
             $('<td>').text  (repo.stargazers_count)).appendTo('.top-repos');
