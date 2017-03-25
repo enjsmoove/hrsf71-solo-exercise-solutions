@@ -16,6 +16,7 @@ $ npm start
 ```
 
 ## Basic Requirements:
+I've randomized stargazers. And capped the amonut of repositories that get's fetched to 10. 
 
 - [X] Fix the error that happens when you start the server (hint: google the error)
 
@@ -31,7 +32,7 @@ $ npm start
 
 - [ X] When the page loads, you should fetch `GET /repos` and display the repo information on the page in an HTML table.
 
-- [ ] Make each repo's name in the table link to that repo's page on GitHub.
+- [X] Make each repo's name in the table link to that repo's page on GitHub.
 
 ## Extra Credit:
 

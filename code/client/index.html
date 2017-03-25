@@ -22,11 +22,6 @@
 <script>
 getAllStoredRepos();
 
-// TODO:
-//  Respond to the form's `submit` event,
-//  fetch from GitHub's API,
-//  and send result to POST /repos/import
-//
 $('.repo-fetcher').submit(function(e){
   e.preventDefault();
   var username = $('input').val();
@@ -41,9 +36,12 @@ $('.repo-fetcher').submit(function(e){
       $('.repo').remove();
       $.each(res, function(i, repo){
         $('<tr class = repo>').append(
-            $('<td>').text(repo.name),
+            $('<td class= reponame>').text(repo.name),
             $('<td>').text(repo.owner),
             $('<td>').text  (repo.stargazers_count)).appendTo('.top-repos');
+        $('.reponame').wrap(() => {
+          return "<a href=" + this.url+"></a>";
+        })
       })
     })
   })
