@@ -49,28 +49,27 @@ $(document).ready(function() {
       url: inputUrl,
       dataType: "json",
       crossDomain: true,
-      success: function(data) {
-        console.log('data', data)
-        let convertedData = data.map((item) => { 
-          $('.top-repos').append("<p>" + item.name + "</p><br>" + "<p>" + item.owner.login + "</p><br>" + "<p>" + item.stargazers_count + "</p><br>")
-            return ({ 
+      success: function(response) {
+        // console.log('data', response.data)
+        let convertedData = response.map((item) => { 
+            console.log(item)
+            let tmp =  ({ 
               reponame: item.name,
               username: item.owner.login,
               stargazers: item.stargazers_count
+            });
+          $.ajax({
+            type: "POST",
+            url: '/repos/import',
+            dataType: "json",
+            data: tmp,
+            success: function(resp) {
+              console.log("response from the server!", resp)
             }
-          )
+        })
         })
         console.log('convertedData::::::', convertedData)
-        $.ajax({
-          type: "POST",
-          url: '/repos/import',
-          dataType: "json",
-          data: convertedData,
-          success: function(response) {
-            
-            console.log("response from the server!", response)
-          }
-        });
+ ;
       },
       error: function(error) {
         console.log("error", error)

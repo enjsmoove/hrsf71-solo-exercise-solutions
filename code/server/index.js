@@ -13,17 +13,10 @@ var knex = require('knex')({
   connection: {
     filename: './github-fetcher.sqlite3'
   }
-  // development: {
-  //   client: 'sqlite3',
-  //   connection: {
-  //     filename: './github-fetcher.sqlite3'
-  //   }
-  // }
 })
 
 app.post('/repos/import', function (req, res) {
   console.log('data sent to server ie req.body', req.body)
-
   req.body.map(function (repo) {
     knex.insert(repo).into('repos').then(function () {
       console.log('Formated repo saved to DB', repo)
@@ -35,6 +28,7 @@ app.post('/repos/import', function (req, res) {
 
 app.get('/repos', function (req, res) {
   knex.select().table('repos').limit(25).orderBy('stargazers', 'desc').then(function (result) {
+    console.log(result)
     res.status(200).json(result)
   })
 })
