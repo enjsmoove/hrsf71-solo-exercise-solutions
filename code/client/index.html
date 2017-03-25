@@ -36,13 +36,13 @@ $(document).ready(function() {
         var obj = {"owner":elem.owner.login, "name": elem.name,"stargazers_count":elem.stargazers_count};
         return obj;
       });
-
+      var test = {"owner":"anirvan90", "name":"anirvansrepo", "stargazers_count":10}
      $.ajax({
        type: 'POST',
        url: '/repos/import',
-       data: clean,
-     }).done(function(){
-       console.log('cleaned after post',clean);
+       data: JSON.stringify(test)
+     }).done(function(data){
+       console.log('cleaned after post',data);
      })
 
     });
