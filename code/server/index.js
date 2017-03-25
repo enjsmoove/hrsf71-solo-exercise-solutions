@@ -35,7 +35,7 @@ app.post('/repos/import', function (req, res) {
 
 app.get('/repos', function (req, res) {
   knex.select().table('repos').then(function (result) {
-    console.log(result)
+    res.status(200).json(result)
   })
   // .res.send('GET send to /repos')
 })
