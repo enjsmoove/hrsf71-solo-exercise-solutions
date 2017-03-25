@@ -1,0 +1,5 @@
+I have all the funcitonality working expect for inserting duplicate repos.
+I would have tried to continue figuring out the correct knex method to fix the bug but
+github has blocked me from accessing their api :(
+
+  
