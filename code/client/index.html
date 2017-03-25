@@ -24,8 +24,27 @@
 //
 $('.repo-fetcher').submit(function(e){
   e.preventDefault();
-  console.log(e.target.value)
+  var username = $('input').val();
+  var requri = 'https://api.github/users/' + username;
+  var repouri = 'https://api.github.com/users/' +username + '/repos';
+
+  requestJSON(requri, function(json){
+    console.log(json)
+  })
+  requestJSON(repouri, function(json){
+    console.log(json)
+  })
+
 })
+
+function requestJSON(url, callback){
+  $.ajax({
+    url: url,
+    complete: function(xhr) {
+      callback.call(null, xhr.responseJSON)
+    }
+  })
+}
 
 </script>
 </body>

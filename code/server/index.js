@@ -1,5 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var GitHub = require('github-api');
+
+
 
 var app = express();
 module.exports = app;
@@ -21,6 +24,8 @@ app.post('/repos/import', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // TODO
+  console.log(req.query)
+
 });
 
 
