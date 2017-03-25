@@ -55,7 +55,7 @@ Add the following additional pages, complete with navigation:
 
 ---
 
-Try not to reference any code in your past projects. Instead, use google as your primary source of information.
+Do not reference any code in your past projects. Instead, use google as your primary source of information.
 ```
 Example: "How do I create a migration in knex?"
 
@@ -70,13 +70,8 @@ Solution:
   4. Read the question content and make sure it's relevant
   5. If you find a good answer:
     - Try to understand it conceptually
-    - Copy/paste into your own project
-    - Tweak pasted code to work with your project
+    - Apply that conceptual understanding to your problem
 ```
-
-- You should learn how to be autonomous on the "how to do" (see previous bullet). However, if you don’t know “what to do", you should open a help ticket pretty quick.
-
-  - It’ll be the same on the job. Your co-workers won’t have time to go over every "how to do" question you might have, but they will always be willing to go over the “what to do” strategies and approaches.
 
 - The GitHub API endpoint you need to fetch from is a public endpoint, so you won't need any API keys (unless you make too many requests in one day. In that case you'll need to create and use a [personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)).
 
