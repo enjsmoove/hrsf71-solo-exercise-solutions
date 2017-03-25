@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -25,7 +26,7 @@ app.get('/repos', function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/client/index.html')
+  res.sendFile(path.join(__dirname,'../client/index.html'));
 });
 
 var port = process.env.PORT || 4040;
