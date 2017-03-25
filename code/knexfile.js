@@ -6,5 +6,4 @@ module.exports = {
       filename: './github-fetcher.sqlite3'
     }
   }
-
-};
+}
