@@ -22,7 +22,10 @@
 //  fetch from GitHub's API,
 //  and send result to POST /repos/import
 //
-// $('.repo-fetcher')...
+$('.repo-fetcher').submit(function(e){
+  e.preventDefault();
+  console.log(e.target.value)
+})
 
 </script>
 </body>

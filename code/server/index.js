@@ -24,8 +24,8 @@ app.get('/repos', function (req, res) {
 });
 
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/client/index.html')
+app.use(express.static('./client')).get('*', function (req, res) {
+  res.sendFile('./client/index.html')
 });
 
 var port = process.env.PORT || 4040;
