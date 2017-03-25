@@ -34,14 +34,17 @@
    .done(function(results) {
      for(var i = 0; i < results.length; i++){
        var result = results[i];
-       var data = {
-         name: result.name,
-         owner: result.owner.login,
-         stargazers_count: result.stargazers_count
+       var info = {
+         'name': result.name,
+         'owner': result.owner.login,
+         'stargazers_count': result.stargazers_count
        }
-       $.post("http://localhost:4040/repos/import", {name: "matt" }, function(data, status){
-         console.log("THIS IS DATA--->", data);
-         console.log("THIS IS STATUS---->", status);
+       $.ajax({
+         url: 'http://localhost:4040/repos/import',
+         type: 'post',
+         data: JSON.stringify(info),
+         contentType: 'application/json',
+         dataType: 'json'
        })
      }
    })
