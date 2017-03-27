@@ -22,7 +22,27 @@
 //  fetch from GitHub's API,
 //  and send result to POST /repos/import
 //
-// $('.repo-fetcher')...
+$(document).ready(function(){
+    $("button").click(function(){
+        data = $("input:text").val();
+        $.ajax({
+          type: 'GET',
+          url: 'https://api.github.com/users/enjsmoove/repos', 
+          crossDomain: true,
+          dataType: 'json',
+          success: function() {
+            console.log(arguments);
+          },
+          error: function() {
+            console.log(arguments);
+          }
+        })
+        // $.post( "ajax/test.html", function( data ) {
+        //   $( ".result" ).html( data );
+        // });
+    });
+});
+//$('.repo-fetcher')...
 
 </script>
 </body>

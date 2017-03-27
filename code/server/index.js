@@ -25,7 +25,7 @@ app.get('/repos', function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/client/index.html')
+  res.sendFile('/Users/macbookpro/HackReactor/hrsf71-solo-exercise-solutions/code/client/index.html')
 });
 
 var port = process.env.PORT || 4040;
